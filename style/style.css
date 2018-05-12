@@ -1,0 +1,4 @@
+td:first-of-type, td:first-of-type > div {
+    height: 150px;
+    width: 200px;
+}
