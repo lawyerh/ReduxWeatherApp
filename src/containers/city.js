@@ -61,7 +61,7 @@ class City extends Component{
             );
         }
         return(
-            <h3>Please search for a city!</h3>
+            <h3 className='text-center'>Please search for a city!</h3>
         );
     }
 }

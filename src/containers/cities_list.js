@@ -12,37 +12,42 @@ class CityList extends Component{
         this.updatePinnedCities = this.updatePinnedCities.bind(this);
     }
 
-    updatePinnedCities = () =>{
-        return this.pinnedCities = this.props.cities.map(city => renderWeather(city));
+    updatePinnedCities(){
+        this.pinnedCities = this.props.cities.map(city => renderWeather(city));
+        console.log(this.pinnedCities);
+        return this.pinnedCities;
     }
     
     render(){
-        return (
-            <table className='table table-hover table-striped'>
-            <thead>
-                <tr>
-                    <th>
-                        City
-                    </th>
-
-                    <th>
-                        Temperature
-                    </th>
-
-                    <th>
-                        Pressure
-                    </th>
-
-                    <th>
-                        Humidity
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {this.updatePinnedCities()}
-            </tbody>
-        </table>
-        )
+        if(this.props.cities.length){
+            return (
+                <table className='table table-hover table-striped'>
+                <thead>
+                    <tr>
+                        <th>
+                            City
+                        </th>
+    
+                        <th>
+                            Temperature
+                        </th>
+    
+                        <th>
+                            Pressure
+                        </th>
+    
+                        <th>
+                            Humidity
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.updatePinnedCities()}
+                </tbody>
+            </table>    
+            );
+        }
+        return <div></div>;
     }
 }
 
