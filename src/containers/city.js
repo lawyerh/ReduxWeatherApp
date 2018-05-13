@@ -1,31 +1,25 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import Chart from "../components/chart";
-import Map from "../components/map";
+import  pinCity from '../actions/pin_city';
+import { bindActionCreators } from "redux";
+import renderWeather from '../actions/genTable';
 
 class City extends Component{
     constructor(props){
         super(props);
-        if(this.props.forecast){
-            console.log(this.props.forecast);
-        }
+        
+        this.pin = this.pin.bind(this);
     }
 
-    renderWeather(cityData) {
+    pin(){
+        console.log("**************** PINNING!")
+        if(!this.props.forecast){
+            return;
+        }
 
-        const temps = cityData.list.map(weather => weather.main.temp);
-        const pressures = cityData.list.map(weather => weather.main.pressure)
-        const humidities = cityData.list.map(weather => weather.main.humidity)
-        const {lon, lat} = cityData.city.coord;
-        console.log(temps)
-        return(
-            <tr className='mb-2'>
-                <td><Map lon={lon} lat={lat} /></td>
-                <td><Chart height={100} width={100} data={temps} color={'red'} type=' Kelvins'/></td>
-                <td><Chart height={100} width={100} data={pressures} color={'blue'} type=' hPa'/></td>
-                <td><Chart height={100} width={100} data={humidities} color={'green'} type='%'/></td>
-            </tr>
-        );
+        else{
+            this.props.pinCity(this.props.forecast)
+        }
     }
 
     // ********* RENDER METHOD ********** //
@@ -54,12 +48,14 @@ class City extends Component{
                             </th>
 
                             <th>
-                                <button className='btn btn-sm btn-primary'>Pin this city</button>
+                                <button
+                                onClick={this.pin}
+                                className='btn btn-sm btn-primary'>Pin this city</button>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.renderWeather(this.props.forecast)}
+                        {renderWeather(this.props.forecast)}
                     </tbody>
                 </table>
             );
@@ -74,4 +70,8 @@ function mapStateToProps({forecast}){ // {forecast === state.forecast} since sta
     return{ forecast }; // {forecast} === {forecast: forecast}
 };
 
-export default connect(mapStateToProps)(City);
+function mapDispatchToProps(dispatch){
+    return bindActionCreators( { pinCity }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(City);
