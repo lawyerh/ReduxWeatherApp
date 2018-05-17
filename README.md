@@ -1,3 +1,7 @@
+# About This File
+
+This project was my first experience with Redux. It involves most major components; actions, reducers, middleware, API calls, correct state management, containers, etc.
+
 # ReduxSimpleStarter
 
 Interested in learning [Redux](https://www.udemy.com/react-redux/)?
